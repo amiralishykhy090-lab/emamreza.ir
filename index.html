@@ -180,540 +180,294 @@
 </div>
     
     <br><br>
-   
-
-    <!-- ===== HERO SLIDER ===== -->
-   
-    <!-- ===== اسلایدر حرفه‌ای جدید ===== -->
-<section class="hero">
-
-
-
-
-
-    <style>
-        /* =========================================
-           SHOP HERO SLIDER
-           تمام کلاس‌ها اختصاصی این بخش هستند
-        ========================================= */
-
-        .shopHero {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-sizing: border-box;
-        }
-
-        .shopHero *,
-        .shopHero *::before,
-        .shopHero *::after {
-            box-sizing: border-box;
-        }
-
-        /* کانتینر اصلی */
-        .shopHero-slider {
-            position: relative;
-
-            width: 1000px;
-            height: 650px;
-
-            overflow: hidden;
-
-            border-radius: 14px;
-            background: #f5f5f5;
-
-            direction: ltr;
-        }
-
-        /* نوار اسلایدها */
-        .shopHero-track {
-            width: 100%;
-            height: 100%;
-
-            display: flex;
-
-            transition: transform 0.7s cubic-bezier(0.77, 0, 0.175, 1);
-        }
-
-        /* هر اسلاید */
-        .shopHero-slide {
-            flex: 0 0 100%;
-
-            width: 100%;
-            height: 100%;
-
-            position: relative;
-        }
-
-        /* تصاویر */
-        .shopHero-slide img {
-            display: block;
-
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-
-            user-select: none;
-            -webkit-user-drag: none;
-        }
-
-        /* =========================================
-           دکمه‌ها
-        ========================================= */
-
-        .shopHero-btn {
-            position: absolute;
-
-            top: 50%;
-            transform: translateY(-50%);
-
-            width: 45px;
-            height: 45px;
-
-            border: none;
-            border-radius: 50%;
-
-            background: rgba(255, 255, 255, 0.92);
-            color: #222;
-
-            font-size: 32px;
-            line-height: 1;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            cursor: pointer;
-
-            z-index: 10;
-
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
-
-            transition:
-                background 0.2s ease,
-                transform 0.2s ease;
-        }
-
-        /* دکمه سمت راست */
-        .shopHero-next {
-            right: 18px;
-        }
-
-        /* دکمه سمت چپ */
-        .shopHero-prev {
-            left: 18px;
-        }
-
-        .shopHero-btn:hover {
-            background: #ffffff;
-            transform: translateY(-50%) scale(1.08);
-        }
-
-        /* =========================================
-           نقطه‌های پایین
-        ========================================= */
-
-        .shopHero-dots {
-            position: absolute;
-
-            bottom: 18px;
-            left: 50%;
-
-            transform: translateX(-50%);
-
-            display: flex;
-            align-items: center;
-
-            gap: 7px;
-
-            z-index: 10;
-        }
-
-        .shopHero-dot {
-            width: 9px;
-            height: 9px;
-
-            padding: 0;
-            border: none;
-
-            border-radius: 50%;
-
-            background: rgba(255, 255, 255, 0.65);
-
-            cursor: pointer;
-
-            transition:
-                width 0.3s ease,
-                background 0.3s ease;
-        }
-
-        .shopHero-dot-active {
-            width: 25px;
-
-            border-radius: 10px;
-
-            background: #ffffff;
-        }
-
-        /* =========================================
-           Responsive
-        ========================================= */
-
-        @media (max-width: 1050px) {
-
-            .shopHero-slider {
-                width: calc(100% - 30px);
-                height: auto;
-
-                aspect-ratio: 1000 / 650;
-            }
-
-        }
-
-        @media (max-width: 600px) {
-
-            .shopHero-slider {
-                width: calc(100% - 20px);
-
-                border-radius: 10px;
-            }
-
-            .shopHero-btn {
-                width: 36px;
-                height: 36px;
-
-                font-size: 25px;
-            }
-
-            .shopHero-next {
-                right: 10px;
-            }
-
-            .shopHero-prev {
-                left: 10px;
-            }
-
-            .shopHero-dots {
-                bottom: 10px;
-            }
-        }
-    </style>
+  
 </head>
 
 <body>
 
 
-    <!-- =========================================
-         HERO SECTION
-    ========================================= -->
 
 
-
-    <!-- =========================================
-         JAVASCRIPT
-    ========================================= -->
-
-    <script>
-
-        document.addEventListener("DOMContentLoaded", function () {
-
-            const hero = document.querySelector(".shopHero");
-
-            if (!hero) return;
-
-
-            const track =
-                hero.querySelector(".shopHero-track");
-
-            const slides =
-                hero.querySelectorAll(".shopHero-slide");
-
-            const nextBtn =
-                hero.querySelector(".shopHero-next");
-
-            const prevBtn =
-                hero.querySelector(".shopHero-prev");
-
-            const dots =
-                hero.querySelectorAll(".shopHero-dot");
-
-
-            let currentSlide = 0;
-
-            const totalSlides = slides.length;
-
-            let autoSlide;
-
-
-            /* =====================================
-               نمایش اسلاید
-            ===================================== */
-
-            function showSlide(index) {
-
-                if (index >= totalSlides) {
-                    currentSlide = 0;
-                }
-
-                if (index < 0) {
-                    currentSlide = totalSlides - 1;
-                }
-
-                track.style.transform =
-                    `translateX(-${currentSlide * 100}%)`;
-
-
-                /* فعال کردن نقطه */
-                dots.forEach(function (dot, i) {
-
-                    dot.classList.toggle(
-                        "shopHero-dot-active",
-                        i === currentSlide
-                    );
-
-                });
-
-            }
-
-
-            /* =====================================
-               اسلاید بعدی
-            ===================================== */
-
-            function nextSlide() {
-
-                currentSlide++;
-
-                if (currentSlide >= totalSlides) {
-                    currentSlide = 0;
-                }
-
-                showSlide(currentSlide);
-
-            }
-
-
-            /* =====================================
-               اسلاید قبلی
-            ===================================== */
-
-            function previousSlide() {
-
-                currentSlide--;
-
-                if (currentSlide < 0) {
-                    currentSlide = totalSlides - 1;
-                }
-
-                showSlide(currentSlide);
-
-            }
-
-
-            /* =====================================
-               دکمه بعدی
-            ===================================== */
-
-            nextBtn.addEventListener("click", function () {
-
-                nextSlide();
-
-                restartAutoSlide();
-
-            });
-
-
-            /* =====================================
-               دکمه قبلی
-            ===================================== */
-
-            prevBtn.addEventListener("click", function () {
-
-                previousSlide();
-
-                restartAutoSlide();
-
-            });
-
-
-            /* =====================================
-               کلیک روی نقاط
-            ===================================== */
-
-            dots.forEach(function (dot, index) {
-
-                dot.addEventListener("click", function () {
-
-                    currentSlide = index;
-
-                    showSlide(currentSlide);
-
-                    restartAutoSlide();
-
-                });
-
-            });
-
-
-            /* =====================================
-               حرکت خودکار هر 2 ثانیه
-            ===================================== */
-
-            function startAutoSlide() {
-
-                autoSlide = setInterval(function () {
-
-                    nextSlide();
-
-                }, 2000);
-
-            }
-
-
-            /* =====================================
-               ریست تایمر
-            ===================================== */
-
-            function restartAutoSlide() {
-
-                clearInterval(autoSlide);
-
-                startAutoSlide();
-
-            }
-
-
-            /* =====================================
-               شروع اسلایدر
-            ===================================== */
-
-            showSlide(currentSlide);
-
-            startAutoSlide();
-
-        });
-
-    </script>
 
 </section>
 
     <!-- ===== MAIN CONTENT ===== -->
     <main id="card" class="container">
 
-        <!-- ===== EVENTS SCROLL SECTION ===== -->
-        <div style="font-family: x;" class="section-title">
-            <h2><i class="fas fa-calendar-check"></i> مراسم‌های مسجد<i class="fas fa-calendar-check"></i></h2>
-            <div class="line"></div>
+
+<!-- ===== بخش برنامه‌ی هفتگی (آکاردئون) ===== -->
+<style>
+.mwk-sched{
+  --mwk-primary:#0079b1;
+  --mwk-primary-dark:#005f8c;
+  --mwk-text:#1d2b36;
+  --mwk-muted:#5b6b78;
+  --mwk-border:#d7e3ec;
+  --mwk-soft:#f1f8fc;
+  --mwk-bg:#ffffff;
+  direction:rtl;
+  text-align:right;
+  font-family:inherit;
+  color:var(--mwk-text);
+  line-height:1.8;
+  max-width:880px;
+  margin:0 auto;
+  padding:clamp(16px,4vw,32px) clamp(12px,3vw,24px);
+}
+.mwk-sched *,.mwk-sched *::before,.mwk-sched *::after{box-sizing:border-box}
+.mwk-sched__title{
+  display:flex;align-items:center;gap:10px;
+  margin:0 0 clamp(12px,3vw,20px);
+  font-size:clamp(1.25rem,1rem + 1vw,1.75rem);
+  font-weight:700;
+  color:var(--mwk-primary-dark);
+}
+.mwk-sched__title-icon{width:26px;height:26px;flex:0 0 26px;stroke:var(--mwk-primary);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mwk-sched__list{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+@media (min-width:768px){
+  .mwk-sched__list{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+}
+.mwk-sched__item{
+  min-width:0;
+  background:var(--mwk-bg);
+  border:1px solid var(--mwk-border);
+  border-radius:14px;
+  overflow:hidden;
+  transition:border-color .2s ease,box-shadow .2s ease;
+}
+.mwk-sched__item:hover{box-shadow:0 4px 14px rgba(0,121,177,.08)}
+.mwk-sched__item.is-open{border-color:var(--mwk-primary)}
+.mwk-sched__head{margin:0;font-size:inherit;font-weight:inherit}
+.mwk-sched__btn{
+  display:flex;align-items:center;gap:12px;
+  width:100%;min-height:56px;
+  margin:0;padding:12px 16px;
+  background:none;border:0;cursor:pointer;
+  font:inherit;color:inherit;text-align:inherit;
+  -webkit-tap-highlight-color:transparent;
+}
+.mwk-sched__btn:focus-visible{outline:3px solid rgba(0,121,177,.45);outline-offset:-3px;border-radius:14px}
+.mwk-sched__name{flex:1 1 auto;min-width:0;font-weight:700;font-size:1.05rem}
+.mwk-sched__item.is-today .mwk-sched__name::after{
+  content:"امروز";
+  display:inline-block;
+  margin-inline-start:8px;
+  padding:0 10px;
+  border-radius:999px;
+  background:var(--mwk-primary);
+  color:#fff;
+  font-size:.75rem;
+  font-weight:600;
+  line-height:1.6;
+  vertical-align:middle;
+}
+.mwk-sched__count{flex:0 0 auto;font-size:.85rem;color:var(--mwk-muted);white-space:nowrap}
+.mwk-sched__icon{
+  width:20px;height:20px;flex:0 0 20px;
+  stroke:var(--mwk-primary);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+  transition:transform .3s ease;
+}
+.mwk-sched__item.is-open .mwk-sched__icon{transform:rotate(180deg)}
+.mwk-sched__panel{
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows .3s ease;
+}
+.mwk-sched__item.is-open .mwk-sched__panel{grid-template-rows:1fr}
+.mwk-sched__inner{min-height:0;overflow:hidden}
+.mwk-sched__events{
+  list-style:none;margin:0;padding:4px 16px 14px;
+  border-top:1px solid var(--mwk-border);
+}
+.mwk-sched__ev{
+  display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;
+  padding:10px 0;
+  border-bottom:1px dashed var(--mwk-border);
+}
+.mwk-sched__ev:last-child{border-bottom:0}
+.mwk-sched__time{
+  min-width:3.6em;
+  font-weight:700;
+  color:var(--mwk-primary);
+  font-variant-numeric:tabular-nums;
+}
+.mwk-sched__ev-title{flex:1 1 150px;min-width:0;overflow-wrap:anywhere}
+.mwk-sched__aud{
+  font-size:.8rem;color:var(--mwk-muted);
+  background:var(--mwk-soft);
+  border-radius:999px;padding:1px 10px;
+  white-space:nowrap;
+}
+@media (prefers-reduced-motion:reduce){
+  .mwk-sched *{transition:none!important}
+}
+</style>
+
+<section class="mwk-sched" id="mwk-sched" aria-labelledby="mwk-sched-title">
+  <h2 class="mwk-sched__title" id="mwk-sched-title">
+    <svg class="mwk-sched__title-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    برنامه‌ی هفتگی
+  </h2>
+
+  <ul class="mwk-sched__list">
+    <li class="mwk-sched__item">
+      <h3 class="mwk-sched__head">
+        <button class="mwk-sched__btn" type="button" aria-expanded="false" aria-controls="mwk-p-0" id="mwk-b-0">
+          <span class="mwk-sched__name">شنبه</span>
+          <span class="mwk-sched__count">۲ برنامه</span>
+          <svg class="mwk-sched__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+      </h3>
+      <div class="mwk-sched__panel" id="mwk-p-0" role="region" aria-labelledby="mwk-b-0">
+        <div class="mwk-sched__inner">
+          <ul class="mwk-sched__events">
+            <li class="mwk-sched__ev"><span class="mwk-sched__time">۰۸:۰۰</span><span class="mwk-sched__ev-title">درس قرآن</span><span class="mwk-sched__aud">مردان</span></li>
+            <li class="mwk-sched__ev"><span class="mwk-sched__time">۱۹:۳۰</span><span class="mwk-sched__ev-title">جلسه‌ی دعا</span><span class="mwk-sched__aud">عمومی</span></li>
+          </ul>
         </div>
+      </div>
+    </li>
 
-        <div  class="scroll-wrapper" id="eventsWrapper">
-            <div class="scroll-container" id="scrollContainer">
-                <!-- کارت مراسم ۱ -->
-                <div class="event-card" data-title="دعای کمیل" data-time="پنجشنبه شب‌ها" data-location="شبستان امام" data-desc="مراسم پرفیض دعای کمیل همراه با سخنرانی حجت‌الاسلام والمسلمین و مداحی ذاکرین اهل بیت (ع).">
-                    <img src="./مراسمات/کمیل.webp" alt="دعای کمیل">
-                    <h4>دعای کمیل</h4>
-                    <p>پنجشنبه شب‌ها با سخنرانی</p>
-                    <span class="badge">هفتگی</span>
-                </div>
-
-                <!-- کارت مراسم ۲ -->
-                <div class="event-card" data-title="شب‌های قدر" data-time="۱۹، ۲۱، ۲۳ رمضان" data-location="مسجد جامع" data-desc="احیا و نیایش در شب‌های قدر ماه مبارک رمضان با برنامه‌های ویژه شامل قرآن به سر و دعا.">
-                    <img src="./مراسمات/شب قدر.webp" alt="شب‌های قدر">
-                    <h4>شب‌های قدر</h4>
-                    <p>احیا و نیایش در ماه رمضان</p>
-                    <span class="badge">ویژه</span>
-                </div>
-
-                <!-- کارت مراسم ۳ -->
-                <div class="event-card" data-title="درس اخلاق" data-time="چهارشنبه‌ها ۱۸:۰۰" data-location="تالار امام" data-desc="جلسات اخلاق و معرفت با حضور اساتید برجسته حوزه علمیه.">
-                    <img src="./مراسمات/ماه محرم.webp" alt="درس اخلاق">
-                    <h4>ماه محرم</h4>
-                    <p>برنامه ها و مراسمات ماه محرم</p>
-                    <span class="badge">هفتگی</span>
-                </div>
-
-                <!-- کارت مراسم ۴ -->
-                <div class="event-card" data-title="زیارت عاشورا" data-time="هر روز صبح" data-location="حسینیه مرکزی" data-desc="قرائت دسته‌جمعی زیارت عاشورا با هدف تعظیم شعائر حسینی.">
-                    <img src="./مراسمات/رمضان.webp" alt="زیارت عاشورا">
-                    <h4>ماه رمضان</h4>
-                    <p>برنامه ها و مراسمات ماه رمضان</p>
-                    <span class="badge">روزانه</span>
-                </div>
-
-                <!-- کارت مراسم ۵ -->
-                <div class="event-card" data-title="نماز جماعت" data-time="روزانه" data-location="شبستان اصلی" data-desc="اقامه نماز جماعت صبح، ظهر و عشاء با حضور پرشور مؤمنین.">
-                    <img src="./مراسمات/نماز جماعن.webp" alt="نماز جماعت">
-                    <h4>نماز جماعت</h4>
-                    <p>اقامه نماز جماعت صبح، ظهر، عشاء</p>
-                    <span class="badge">روزانه</span>
-                </div>
-
-                <!-- کارت مراسم ۶ -->
-                <div class="event-card" data-title="مراسم سوگواری" data-time="ایام خاص" data-location="حسینیه اعظم" data-desc="مراسم عزاداری ایام فاطمیه، محرم و صفر با حضور مداحان برجسته.">
-                    <img src="./مراسمات/سوگ.webp" alt="مراسم سوگواری">
-                    <h4>مراسم سوگواری</h4>
-                    <p>عزاداری ایام</p>
-                    <span class="badge">ویژه</span>
-                </div>
-
-                <!-- کارت مراسم ۷ -->
-                <div class="event-card" data-title="جلسه تفسیر" data-time="پنجشنبه‌ها ۱۶:۰۰" data-location="سالن اجتماعات" data-desc="جلسات تفسیر قرآن کریم با رویکرد تدبر در آیات.">
-                    <img src="./مراسمات/تفسیر.webp" alt="جلسه تفسیر">
-                    <h4>جلسه تفسیر</h4>
-                    <p>تفسیر قرآن با رویکرد تدبر</p>
-                    <span class="badge">هفتگی</span>
-                </div>
-            </div>
-            <button class="scroll-btn scroll-btn-left" id="scrollPrev"><i class="fas fa-chevron-right"></i></button>
-            <button class="scroll-btn scroll-btn-right" id="scrollNext"><i class="fas fa-chevron-left"></i></button>
+    <li class="mwk-sched__item">
+      <h3 class="mwk-sched__head">
+        <button class="mwk-sched__btn" type="button" aria-expanded="false" aria-controls="mwk-p-1" id="mwk-b-1">
+          <span class="mwk-sched__name">یکشنبه</span>
+          <span class="mwk-sched__count">۱ برنامه</span>
+          <svg class="mwk-sched__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+      </h3>
+      <div class="mwk-sched__panel" id="mwk-p-1" role="region" aria-labelledby="mwk-b-1">
+        <div class="mwk-sched__inner">
+          <ul class="mwk-sched__events">
+            <li class="mwk-sched__ev"><span class="mwk-sched__time">۱۸:۳۰</span><span class="mwk-sched__ev-title">کلاس روخوانی</span><span class="mwk-sched__aud">کودکان</span></li>
+          </ul>
         </div>
+      </div>
+    </li>
 
-        <!-- ===== WEEKLY PROGRAM ===== -->
-        <div style="font-family: x;" id="day" class="weekly-program">
-            <div class="section-title" style="margin-bottom: 20px;">
-                <h2 style="font-family: x;"><i class="fas fa-calendar-wek"></i> برنامه هفتگی <i class="fas fa-calendar-wek"></i></h2>
-                <div class="line"></div>
-            </div>
-            <div class="weekly-grid">
-                <div class="weekly-item">
-                    <div class="day">شنبه</div>
-                    <div class="program"> سلسله نشست های #تدبر_در_قرآن_کریم ‌ ‌ 🔻نگاه ساختاری به آیات قرآن کریم به همراه بیان تفسیر المیزان علامه طباطبایی و تفسیر تسنیم علامه جوادی آملی ‌ ‌ زمان : شنبه های هر هفته از نماز مغرب و عشاء</div>
-                   
-                </div>
-                <div class="weekly-item">
-                    <div class="day">یکشنبه</div>
-                    <div class="program">: نهضت_نهج_البلاغه_خوانی ‌ ‌ 🔻ترجمه خوانی 🔻بیام معارف ‌ ‌ همه شما در این جلسه نهج البلاغه میخوانید ‌ ‌ زمان : یکشنبه های هر هفته از نماز مغرب و عشاء</div>
-                    
-                </div>
-                <div class="weekly-item">
-                    <div class="day">دوشنبه</div>
-                    <div class="program">: انس_با_شهدا ‌ ‌ 🔻روایتگری خاطرات شهدا 🔻وصیت خوانی 🔻بیان مسائل بصیرتی ‌ ‌ ‌ ‌ زمان : دوشنبه های هر هفته از نماز مغرب و عشاء</div>
-                    
-                </div>
-                <div class="weekly-item">
-                    <div class="day">سه‌شنبه</div>
-                    <div class="program">انس_با_صحیفه‌سجادیه ‌ 🔻ترجمه خوانی 🔻بیان معارف ‌ 💢به همراه قرائت دعای توسل💢 بعد از شرح صحیفه سجادیه ‌ زمان : سه شنبه های هر هفته از نماز مغرب و عشاء</div>
-                </div>
-                <div class="weekly-item">
-                    <div class="day">چهارشنبه</div>
-                    <div class="program"> محفل هفتگی #انس_با_قرآن_کریم ‌ 🔻بیان معارف 🔻آموزش روخوانی و روانخوانی 🔻تلاوت مجلسی توسط قاریان برتر ‌ ‌ زمان : چهارشنبه های هر هفته از نماز مغرب و عشاء</div>
-                    
-                </div>
-                <div class="weekly-item">
-                    <div class="day">پنجشنبه</div>
-                    <div class="program"> 💢قرائت دعای کمیل ‌ 🔻مناجات خوانی 🔻ذکر مصیبت ‌ زمان :پنچ شنبه های هر هفته از نماز مغرب و عشاء</div>
-                    
-                </div>
-                <div class="weekly-item">
-                    <div class="day">جمعه</div>
-                    <div class="program">قرائت زیارت آل یاسین ‌ 🔻مناجات خوانی 🔻درد دل با آقا صاحب الزمان ‌ با نوای سید علی میرباقری ‌ زمان:جمعه ها هر هفته از نماز مغرب و عشاء</div>
-                    
-                </div>
-            </div>
+    <li class="mwk-sched__item">
+      <h3 class="mwk-sched__head">
+        <button class="mwk-sched__btn" type="button" aria-expanded="false" aria-controls="mwk-p-2" id="mwk-b-2">
+          <span class="mwk-sched__name">دوشنبه</span>
+          <span class="mwk-sched__count">۲ برنامه</span>
+          <svg class="mwk-sched__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+      </h3>
+      <div class="mwk-sched__panel" id="mwk-p-2" role="region" aria-labelledby="mwk-b-2">
+        <div class="mwk-sched__inner">
+          <ul class="mwk-sched__events">
+            <li class="mwk-sched__ev"><span class="mwk-sched__time">۱۹:۰۰</span><span class="mwk-sched__ev-title">درس اخلاق</span><span class="mwk-sched__aud">عمومی</span></li>
+            <li class="mwk-sched__ev"><span class="mwk-sched__time">۲۰:۳۰</span><span class="mwk-sched__ev-title">جلسه‌ی بانوان</span><span class="mwk-sched__aud">زنان</span></li>
+          </ul>
         </div>
+      </div>
+    </li>
 
+    <li class="mwk-sched__item">
+      <h3 class="mwk-sched__head">
+        <button class="mwk-sched__btn" type="button" aria-expanded="false" aria-controls="mwk-p-3" id="mwk-b-3">
+          <span class="mwk-sched__name">سه‌شنبه</span>
+          <span class="mwk-sched__count">۱ برنامه</span>
+          <svg class="mwk-sched__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+      </h3>
+      <div class="mwk-sched__panel" id="mwk-p-3" role="region" aria-labelledby="mwk-b-3">
+        <div class="mwk-sched__inner">
+          <ul class="mwk-sched__events">
+            <li class="mwk-sched__ev"><span class="mwk-sched__time">۱۸:۰۰</span><span class="mwk-sched__ev-title">کلاس زبان عربی</span><span class="mwk-sched__aud">عمومی</span></li>
+          </ul>
+        </div>
+      </div>
+    </li>
+
+    <li class="mwk-sched__item">
+      <h3 class="mwk-sched__head">
+        <button class="mwk-sched__btn" type="button" aria-expanded="false" aria-controls="mwk-p-4" id="mwk-b-4">
+          <span class="mwk-sched__name">چهارشنبه</span>
+          <span class="mwk-sched__count">۲ برنامه</span>
+          <svg class="mwk-sched__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+      </h3>
+      <div class="mwk-sched__panel" id="mwk-p-4" role="region" aria-labelledby="mwk-b-4">
+        <div class="mwk-sched__inner">
+          <ul class="mwk-sched__events">
+            <li class="mwk-sched__ev"><span class="mwk-sched__time">۰۹:۰۰</span><span class="mwk-sched__ev-title">کلاس بانوان</span><span class="mwk-sched__aud">زنان</span></li>
+            <li class="mwk-sched__ev"><span class="mwk-sched__time">۱۹:۰۰</span><span class="mwk-sched__ev-title">مراسم یادبود</span><span class="mwk-sched__aud">عمومی</span></li>
+          </ul>
+        </div>
+      </div>
+    </li>
+
+    <li class="mwk-sched__item">
+      <h3 class="mwk-sched__head">
+        <button class="mwk-sched__btn" type="button" aria-expanded="false" aria-controls="mwk-p-5" id="mwk-b-5">
+          <span class="mwk-sched__name">پنجشنبه</span>
+          <span class="mwk-sched__count">۱ برنامه</span>
+          <svg class="mwk-sched__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+      </h3>
+      <div class="mwk-sched__panel" id="mwk-p-5" role="region" aria-labelledby="mwk-b-5">
+        <div class="mwk-sched__inner">
+          <ul class="mwk-sched__events">
+            <li class="mwk-sched__ev"><span class="mwk-sched__time">۱۹:۳۰</span><span class="mwk-sched__ev-title">دعای کمیل</span><span class="mwk-sched__aud">عمومی</span></li>
+          </ul>
+        </div>
+      </div>
+    </li>
+
+    <li class="mwk-sched__item">
+      <h3 class="mwk-sched__head">
+        <button class="mwk-sched__btn" type="button" aria-expanded="false" aria-controls="mwk-p-6" id="mwk-b-6">
+          <span class="mwk-sched__name">جمعه</span>
+          <span class="mwk-sched__count">۲ برنامه</span>
+          <svg class="mwk-sched__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+      </h3>
+      <div class="mwk-sched__panel" id="mwk-p-6" role="region" aria-labelledby="mwk-b-6">
+        <div class="mwk-sched__inner">
+          <ul class="mwk-sched__events">
+            <li class="mwk-sched__ev"><span class="mwk-sched__time">۱۲:۰۰</span><span class="mwk-sched__ev-title">نماز جمعه</span><span class="mwk-sched__aud">عمومی</span></li>
+            <li class="mwk-sched__ev"><span class="mwk-sched__time">۱۶:۰۰</span><span class="mwk-sched__ev-title">گفتار هفتگی</span><span class="mwk-sched__aud">عمومی</span></li>
+          </ul>
+        </div>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<script>
+(function () {
+  var root = document.getElementById('mwk-sched');
+  if (!root) return;
+
+  var items = root.querySelectorAll('.mwk-sched__item');
+
+  function setOpen(item, open) {
+    var btn = item.querySelector('.mwk-sched__btn');
+    var panel = item.querySelector('.mwk-sched__panel');
+    item.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    panel.inert = !open;
+  }
+
+  // روز امروز (هفته از شنبه شروع می‌شود)
+  var todayIndex = (new Date().getDay() + 1) % 7;
+  var todayItem = items[todayIndex];
+  if (todayItem) todayItem.classList.add('is-today');
+
+  items.forEach(function (item) {
+    setOpen(item, item === todayItem);
+  });
+
+  root.addEventListener('click', function (e) {
+    var btn = e.target.closest('.mwk-sched__btn');
+    if (!btn || !root.contains(btn)) return;
+    var item = btn.closest('.mwk-sched__item');
+    setOpen(item, !item.classList.contains('is-open'));
+  });
+})();
+</script>
+<!-- ===== پایان بخش برنامه‌ی هفتگی ===== -->
         <!-- ===== HELP MOSQUE ===== -->
  
     <div id="help" class="container">
@@ -920,7 +674,7 @@
 
         <!-- ===== ABOUT SECTION ===== -->
         <div id="about" class="about-section">
-            <img style="height: 100%;" src="./icon/bb989bce-d592-4997-b2f5-590c99e06102.png" alt="مسجد امام رضا">
+            <img style="height: 100%;" src="./icon/bb989bce-d592-4997-b2f5-590c99e06102.webp" alt="مسجد امام رضا">
             <div>
                 <img src="./عکس های بسیج/Header-Banner.png" alt="">
                 <h3 style="font-family: x;"> درباره ی مسجد امام رضا (ع)</h3>
