@@ -141,10 +141,375 @@
         </div>
     </div>
 
-    <!-- ===== NAV MENU ===== -->
-
+  
     
-    <!-- ===== بخش آیه روز ===== -->
+<!-- ===== هیرو اسلایدر مسجد ===== -->
+<style>
+
+
+.mwh{
+  --mwh-gold:#d9b25f;
+  --mwh-gold-soft:rgba(217,178,95,.25);
+  position:relative;
+  direction:rtl;
+  width:100%;
+  max-width:1280px;
+  margin:0 auto;
+  aspect-ratio:1280 / 852;
+  border-radius:16px;
+  overflow:hidden;
+  background:#0b2233;
+  isolation:isolate;
+  user-select:none;
+  -webkit-user-select:none;
+  box-shadow:0 12px 32px rgba(4,20,32,.18);
+}
+.mwh *,.mwh *::before,.mwh *::after{box-sizing:border-box}
+
+.mwh__viewport{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  touch-action:pan-y;
+  cursor:grab;
+  outline:none;
+  contain:paint;
+}
+.mwh__viewport:focus-visible{box-shadow:inset 0 0 0 3px var(--mwh-gold)}
+.mwh__viewport.is-dragging{cursor:grabbing}
+
+.mwh__track{
+  direction:ltr;
+  display:flex;
+  flex-wrap:nowrap;
+  width:100%;
+  height:100%;
+  will-change:transform;
+  transition:transform .9s cubic-bezier(.22,.61,.36,1);
+}
+.mwh__track.is-dragging{transition:none}
+
+.mwh__slide{
+  position:relative;
+  flex:0 0 100%;
+  width:100%;
+  min-width:100%;
+  max-width:100%;
+  height:100%;
+  overflow:hidden;
+  direction:rtl;
+}
+.mwh__img{
+  position:absolute;
+  top:0;
+  left:0;
+  display:block;
+  width:100%;
+  height:100%;
+  max-width:none;
+  max-height:none;
+  object-fit:cover;
+  object-position:center;
+  pointer-events:none;
+  -webkit-user-drag:none;
+  user-select:none;
+}
+.mwh__slide::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,rgba(4,20,32,.8) 0%,rgba(4,20,32,.25) 50%,rgba(4,20,32,0) 75%);
+  pointer-events:none;
+}
+
+.mwh__caption{
+  position:absolute;
+  inset-inline:0;
+  bottom:0;
+  z-index:2;
+  max-width:760px;
+  padding:clamp(18px,4vw,56px);
+  color:#fff;
+  text-align:right;
+  pointer-events:none;
+}
+.mwh__eyebrow{
+  display:inline-block;
+  margin:0 0 10px;
+  padding:4px 14px;
+  border:1px solid var(--mwh-gold);
+  background:var(--mwh-gold-soft);
+  border-radius:999px;
+  color:var(--mwh-gold);
+  font-size:.85rem;
+  font-weight:600;
+}
+.mwh__title{
+  margin:0 0 8px;
+  font-size:clamp(1.4rem,1rem + 2.2vw,3rem);
+  font-weight:800;
+  line-height:1.35;
+  text-shadow:0 2px 12px rgba(0,0,0,.35);
+  overflow-wrap:anywhere;
+}
+.mwh__text{
+  margin:0;
+  font-size:clamp(.95rem,.85rem + .4vw,1.15rem);
+  line-height:1.9;
+  color:rgba(255,255,255,.92);
+  overflow-wrap:anywhere;
+}
+
+.mwh__dots{
+  position:absolute;
+  inset-inline:0;
+  bottom:clamp(10px,2vw,18px);
+  z-index:3;
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin:0;
+  padding:0;
+  list-style:none;
+  pointer-events:none;
+}
+.mwh__dot{
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background:rgba(255,255,255,.5);
+  transition:width .5s ease,background-color .5s ease;
+}
+.mwh__dot.is-active{width:26px;background:var(--mwh-gold)}
+
+@media (prefers-reduced-motion:reduce){
+  .mwh__track,.mwh__dot{transition:none}
+}
+
+</style>
+
+<section class="mwh" id="mwh" aria-roledescription="carousel" aria-label="اسلایدر اصلی مسجد">
+  <div class="mwh__viewport" id="mwh-viewport" tabindex="0">
+    <div class="mwh__track" id="mwh-track">
+
+      <!-- اسلاید ۱ -->
+      <div class="mwh__slide" role="group" aria-roledescription="slide" aria-label="۱ از ۴">
+        <img class="mwh__img" src="./عکس های بسیج/photo_1_2026-06-13_12-12-00.jpg" alt="تصویر مسجد" draggable="false" loading="eager" decoding="async">
+        <div class="mwh__caption">
+          
+          <h2 class="mwh__title">ایستگاه های صلواتی</h2>
+          <p class="mwh__text">جایی برای یک دورهمی  دوستانه</p>
+        </div>
+      </div>
+
+      <!-- اسلاید ۲ -->
+      <div class="mwh__slide" role="group" aria-roledescription="slide" aria-label="۲ از ۴">
+        <img class="mwh__img" src="./عکس های بسیج/photo_2_2026-06-13_12-12-00.jpg" alt="نماز جماعت در مسجد" draggable="false" loading="lazy" decoding="async">
+        <div class="mwh__caption">
+          
+          <h2 class="mwh__title">هر روز، در کنار هم</h2>
+          <p class="mwh__text">اقامه‌ی نماز جماعت در اوقات شرعی، با حضور همه‌ی خانواده.</p>
+        </div>
+      </div>
+
+      <!-- اسلاید ۳ -->
+      <div class="mwh__slide" role="group" aria-roledescription="slide" aria-label="۳ از ۴">
+        <img class="mwh__img" src="./عکس های بسیج/photo_3_2026-06-13_12-12-00.jpg" alt="کلاس قرآن در مسجد" draggable="false" loading="lazy" decoding="async">
+        <div class="mwh__caption">
+       
+          <h2 class="mwh__title">کلاس‌های قرآن و آموزش</h2>
+          <p class="mwh__text">از روخوانی کودکان تا تفسیر و معارف برای بزرگسالان.</p>
+        </div>
+      </div>
+
+      <!-- اسلاید ۴ -->
+      <div class="mwh__slide" role="group" aria-roledescription="slide" aria-label="۴ از ۴">
+        <img class="mwh__img" src="images/hero-4.jpg" alt="فعالیت‌های خیریه مسجد" draggable="false" loading="lazy" decoding="async">
+        <div class="mwh__caption">
+        
+          <h2 class="mwh__title">با هم، کمک به نیازمندان</h2>
+          <p class="mwh__text">حمایت از خانواده‌های نیازمند با همراهی شما.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <ul class="mwh__dots" id="mwh-dots" aria-hidden="true">
+    <li class="mwh__dot is-active"></li>
+    <li class="mwh__dot"></li>
+    <li class="mwh__dot"></li>
+    <li class="mwh__dot"></li>
+  </ul>
+</section>
+<script>
+
+(function () {
+  var root = document.getElementById('mwh');
+  if (!root) return;
+
+  var vp = document.getElementById('mwh-viewport');
+  var track = document.getElementById('mwh-track');
+  var dots = root.querySelectorAll('#mwh-dots .mwh__dot');
+  var count = track.querySelectorAll('.mwh__slide').length;
+
+  var AUTO_MS = 2000;      // هر ۲ ثانیه یک اسلاید
+  var EDGE_RESIST = 0.35;  // مقاومت در ابتدا و انتهای اسلایدر
+
+  var index = 0;
+  var width = 0;
+  var timer = null;
+  var dragging = false;
+  var locked = null;       // 'x' یا 'y' بعد از تشخیص جهت حرکت
+  var startX = 0, startY = 0, dx = 0, startTime = 0;
+
+  // عرض واقعی viewport را همیشه از DOM می‌خوانیم
+  function measure() {
+    width = vp.getBoundingClientRect().width;
+  }
+
+  function place(px) {
+    track.style.transform = 'translate3d(' + px + 'px,0,0)';
+  }
+
+  function updateDots() {
+    for (var k = 0; k < dots.length; k++) {
+      dots[k].classList.toggle('is-active', k === index);
+    }
+  }
+
+  function go(i) {
+    measure();
+    index = ((i % count) + count) % count;
+    track.classList.remove('is-dragging');
+    place(-index * width);
+    updateDots();
+  }
+
+  // ---------- پخش خودکار ----------
+  function tick() {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      go(index + 1);
+      tick();
+    }, AUTO_MS);
+  }
+
+  function restart() {
+    if (document.hidden || dragging) return;
+    tick();
+  }
+
+  function stop() {
+    clearTimeout(timer);
+    timer = null;
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) stop();
+    else restart();
+  });
+
+  // ---------- لمس و ماوس ----------
+  vp.addEventListener('pointerdown', function (e) {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    measure();
+    dragging = true;
+    locked = null;
+    dx = 0;
+    startX = e.clientX;
+    startY = e.clientY;
+    startTime = Date.now();
+    stop();
+  });
+
+  vp.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var mx = e.clientX - startX;
+    var my = e.clientY - startY;
+
+    if (locked === null) {
+      if (Math.abs(mx) < 8 && Math.abs(my) < 8) return;
+      locked = Math.abs(mx) > Math.abs(my) ? 'x' : 'y';
+      if (locked === 'y') {
+        dragging = false;
+        restart();
+        return;
+      }
+      vp.setPointerCapture(e.pointerId);
+      track.classList.add('is-dragging');
+      vp.classList.add('is-dragging');
+    }
+
+    dx = mx;
+    var base = -index * width;
+    var px = base + dx;
+    if ((index === 0 && dx > 0) || (index === count - 1 && dx < 0)) {
+      px = base + dx * EDGE_RESIST;
+    }
+    place(px);
+  });
+
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    vp.classList.remove('is-dragging');
+
+    if (locked === 'x') {
+      var elapsed = Math.max(1, Date.now() - startTime);
+      var velocity = dx / elapsed;
+      var next = index;
+
+      if (dx < -width * 0.2 || velocity < -0.4) next = index + 1;
+      else if (dx > width * 0.2 || velocity > 0.4) next = index - 1;
+
+      go(next);
+    } else {
+      track.classList.remove('is-dragging');
+    }
+
+    locked = null;
+    restart();
+  }
+
+  vp.addEventListener('pointerup', endDrag);
+  vp.addEventListener('pointercancel', endDrag);
+  vp.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
+  // ---------- کیبورد ----------
+  vp.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { go(index + 1); restart(); }
+    else if (e.key === 'ArrowRight') { go(index - 1); restart(); }
+  });
+
+  // ---------- تغییر اندازه‌ی واقعی (ریسایز، چرخش گوشی، تغییر لایه‌ها) ----------
+  function relayout() {
+    track.classList.add('is-dragging');
+    measure();
+    place(-index * width);
+    void track.offsetWidth;
+    track.classList.remove('is-dragging');
+  }
+
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(relayout).observe(vp);
+  } else {
+    window.addEventListener('resize', relayout);
+  }
+
+  // ---------- شروع ----------
+  measure();
+  place(0);
+  updateDots();
+  restart();
+})();
+
+</script>
+<!-- ===== پایان هیرو اسلایدر ===== -->
+    
+  
 <!-- ===== بخش آیه روز ===== -->
 <div class="daily-ayah-wrapper">
     <div class="daily-ayah" id="dailyAyah">
@@ -181,7 +546,7 @@
     
     <br><br>
   
-</head>
+
 
 <body>
 
@@ -468,6 +833,399 @@
 })();
 </script>
 <!-- ===== پایان بخش برنامه‌ی هفتگی ===== -->
+
+<!-- ===== بخش مراسم‌ها ===== -->
+ <br><br><br>
+<style>
+.mzc{
+  --mzc-blue:#0079b1;
+  --mzc-blue-dark:#005a85;
+  --mzc-ink:#1b2b36;
+  --mzc-muted:#5d6e7a;
+  direction:rtl;
+  text-align:right;
+  position:relative;
+  padding:clamp(28px,5vw,56px) 0;
+  background:linear-gradient(160deg,var(--mzc-blue) 0%,var(--mzc-blue-dark) 100%);
+  border-radius:clamp(0px,1.6vw,20px);
+  overflow:hidden;
+}
+.mzc *,.mzc *::before,.mzc *::after{box-sizing:border-box}
+
+.mzc__head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:0 clamp(16px,4vw,40px);
+  margin-bottom:clamp(18px,3vw,28px);
+}
+.mzc__title{
+  margin:0;
+  color:#fff;
+  font-size:clamp(1.2rem,1rem + 1.2vw,1.8rem);
+  font-weight:800;
+}
+.mzc__hint{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  color:rgba(255,255,255,.8);
+  font-size:.85rem;
+  white-space:nowrap;
+}
+.mzc__hint svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.mzc__track{
+  display:flex;
+  gap:14px;
+  margin:0;
+  padding:8px clamp(16px,4vw,40px) 20px;
+  list-style:none;
+  overflow-x:auto;
+  overflow-y:hidden;
+  overscroll-behavior-x:contain;
+  scroll-snap-type:x proximity;
+  scroll-padding-inline:clamp(16px,4vw,40px);
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  cursor:grab;
+}
+.mzc__track::-webkit-scrollbar{display:none}
+.mzc__track.is-drag{cursor:grabbing;scroll-snap-type:none;user-select:none;-webkit-user-select:none}
+
+.mzc__item{
+  flex:0 0 clamp(190px,62vw,240px);
+  min-width:0;
+  scroll-snap-align:start;
+}
+
+.mzc__card{
+  display:block;
+  width:100%;
+  margin:0;
+  padding:0;
+  border:0;
+  border-radius:20px;
+  background:#fff;
+  color:var(--mzc-ink);
+  font:inherit;
+  text-align:center;
+  cursor:inherit;
+  overflow:hidden;
+  box-shadow:0 8px 22px rgba(0,30,50,.22);
+  transition:transform .25s ease,box-shadow .25s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.mzc__card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(0,30,50,.28)}
+.mzc__card:focus-visible{outline:3px solid #ffd978;outline-offset:3px}
+
+.mzc__top{
+  position:relative;
+  display:block;
+  height:92px;
+  background:linear-gradient(135deg,#dceef7 0%,#b9dcee 100%);
+}
+.mzc__photo{
+  position:absolute;
+  left:50%;
+  bottom:-46px;
+  transform:translateX(-50%);
+  width:92px;
+  height:92px;
+  border-radius:50%;
+  border:4px solid #fff;
+  background:#e8f3f9;
+  object-fit:cover;
+  object-position:center;
+  box-shadow:0 6px 14px rgba(0,60,90,.25);
+  pointer-events:none;
+  -webkit-user-drag:none;
+}
+
+.mzc__body{display:block;padding:58px 16px 18px}
+.mzc__name{
+  display:block;
+  margin-bottom:6px;
+  font-size:1.1rem;
+  font-weight:800;
+  overflow-wrap:anywhere;
+}
+.mzc__sum{
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  min-height:3.4em;
+  margin-bottom:14px;
+  color:var(--mzc-muted);
+  font-size:.9rem;
+  line-height:1.7;
+}
+.mzc__go{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:7px 16px;
+  border-radius:999px;
+  background:var(--mzc-blue);
+  color:#fff;
+  font-size:.85rem;
+  font-weight:600;
+}
+.mzc__go svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+
+/* مودال */
+.mzc__dialog{
+  width:min(92vw,440px);
+  max-height:88vh;
+  margin:auto;
+  padding:0;
+  border:0;
+  border-radius:22px;
+  background:#fff;
+  color:var(--mzc-ink);
+  direction:rtl;
+  text-align:center;
+  overflow:auto;
+  overscroll-behavior:contain;
+}
+.mzc__dialog::backdrop{background:rgba(5,25,38,.6)}
+.mzc__dialog[open]{animation:mzc-pop .3s ease}
+@keyframes mzc-pop{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+.mzc__dtop{
+  position:relative;
+  height:90px;
+  background:linear-gradient(135deg,var(--mzc-blue) 0%,var(--mzc-blue-dark) 100%);
+}
+.mzc__dphoto{
+  position:absolute;
+  left:50%;
+  bottom:-55px;
+  transform:translateX(-50%);
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  border:5px solid #fff;
+  background:#e8f3f9;
+  object-fit:cover;
+  object-position:center;
+  box-shadow:0 8px 18px rgba(0,40,70,.3);
+}
+.mzc__close{
+  position:absolute;
+  top:12px;
+  inset-inline-start:12px;
+  display:grid;
+  place-items:center;
+  width:36px;
+  height:36px;
+  margin:0;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.2);
+  color:#fff;
+  cursor:pointer;
+}
+.mzc__close:hover{background:rgba(255,255,255,.35)}
+.mzc__close:focus-visible{outline:3px solid #ffd978}
+.mzc__close svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round}
+.mzc__dbody{padding:70px clamp(18px,5vw,30px) 28px}
+.mzc__dtitle{margin:0 0 10px;font-size:1.3rem;font-weight:800}
+.mzc__dtext{margin:0;color:var(--mzc-muted);line-height:2;font-size:.98rem;overflow-wrap:anywhere}
+
+@media (min-width:1024px){
+  .mzc__item{flex-basis:250px}
+}
+@media (prefers-reduced-motion:reduce){
+  .mzc__card,.mzc__dialog[open]{transition:none;animation:none}
+}
+</style>
+
+<section class="mzc" id="mzc" aria-labelledby="mzc-title">
+  <div class="mzc__head">
+    <h2 class="mzc__title" id="mzc-title">مراسم‌های مسجد</h2>
+    <span class="mzc__hint" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M9 18l-6-6 6-6M15 6l6 6-6 6"/></svg>
+      بکشید
+    </span>
+  </div>
+
+  <ul class="mzc__track" id="mzc-track">
+
+    <!-- هر کارت یک li است؛ برای کارت جدید کل li را کپی کنید -->
+    <li class="mzc__item">
+      <button type="button" class="mzc__card">
+        <span class="mzc__top"><img class="mzc__photo" src="./مراسمات/رمضان.webp" alt="" width="200" height="200" loading="lazy" decoding="async" draggable="false"></span>
+        <span class="mzc__body">
+          <span class="mzc__name">رمضان</span>
+          <span class="mzc__sum">میزبانی سفره‌ی افطار و شب‌های معنوی ماه مهمانی خدا.</span>
+          <span class="mzc__go">جزئیات <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
+        </span>
+        <span class="mzc__full" hidden>در ماه رمضان مسجد هر شب میزبان نمازگزاران و روزه‌داران است. سفره‌ی افطار ساده و صمیمی پهن می‌شود و بعد از نماز، دعا و قرائت قرآن برگزار می‌شود. همه‌ی اهالی محل، از کودک تا بزرگسال، می‌توانند در این جمع حضور داشته باشند.</span>
+      </button>
+    </li>
+
+    <li class="mzc__item">
+      <button type="button" class="mzc__card">
+        <span class="mzc__top"><img class="mzc__photo" src="./مراسمات/تفسیر.webp" alt="" width="200" height="200" loading="lazy" decoding="async" draggable="false"></span>
+        <span class="mzc__body">
+          <span class="mzc__name">تفسیر قرآن</span>
+          <span class="mzc__sum">جلسه‌های آشنایی با معنا و پیام آیه‌های قرآن کریم.</span>
+          <span class="mzc__go">جزئیات <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
+        </span>
+        <span class="mzc__full" hidden>در جلسه‌های تفسیر، آیات قرآن به زبان ساده معنا و توضیح داده می‌شود. هدف این است که با پیام قرآن در زندگی روزمره بیشتر آشنا شویم. پرسش و پاسخ در پایان هر جلسه برای همه آزاد است.</span>
+      </button>
+    </li>
+
+    <li class="mzc__item">
+      <button type="button" class="mzc__card">
+        <span class="mzc__top"><img class="mzc__photo" src="./مراسمات/شب قدر.webp" alt="" width="200" height="200" loading="lazy" decoding="async" draggable="false"></span>
+        <span class="mzc__body">
+          <span class="mzc__name">شب‌های قدر</span>
+          <span class="mzc__sum">شب‌زنده‌داری، دعا و راز و نیاز در شب‌های پرفضیلت.</span>
+          <span class="mzc__go">جزئیات <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
+        </span>
+        <span class="mwc__fix" hidden></span>
+        <span class="mzc__full" hidden>شب‌های قدر با دعا، قرآن به سر گرفتن و مناجات تا نزدیک سحر همراه است. مسجد در این شب‌ها آرام و نورانی است و فرصتی برای خلوت با خدا فراهم می‌کند. پذیرایی سبک هم برای شب‌زنده‌داران در نظر گرفته می‌شود.</span>
+      </button>
+    </li>
+
+    <li class="mzc__item">
+      <button type="button" class="mzc__card">
+        <span class="mzc__top"><img class="mzc__photo" src="./مراسمات/سوگ.webp" alt="" width="200" height="200" loading="lazy" decoding="async" draggable="false"></span>
+        <span class="mzc__body">
+          <span class="mzc__name">مراسم سوگواری</span>
+          <span class="mzc__sum">یادبود اهل بیت (ع) با روضه، مرثیه و نوحه‌خوانی.</span>
+          <span class="mzc__go">جزئیات <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
+        </span>
+        <span class="mzc__full" hidden>در این مراسم با روضه و مرثیه از مصیبت‌های اهل بیت پیامبر (ص) یاد می‌شود. جمع مسجد در کنار هم عزاداری می‌کند و در پایان از حاضران پذیرایی می‌شود. حضور همه‌ی اهالی محل، با هر سنی، گرم پذیرفته می‌شود.</span>
+      </button>
+    </li>
+
+    <li class="mzc__item">
+      <button type="button" class="mzc__card">
+        <span class="mzc__top"><img class="mzc__photo" src="./مراسمات/ماه محرم.webp" alt="" width="200" height="200" loading="lazy" decoding="async" draggable="false"></span>
+        <span class="mzc__body">
+          <span class="mzc__name">ماه محرم</span>
+          <span class="mzc__sum">عزاداری حسینی و برنامه‌های ویژه‌ی ماه عاشورا.</span>
+          <span class="mzc__go">جزئیات <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
+        </span>
+        <span class="mzc__full" hidden>مسجد در ماه محرم با پرچم و سیاه‌پوشی به استقبال عزاداران امام حسین (ع) می‌رود. هر شب سخنرانی، روضه و عزاداری برگزار می‌شود و در روزهای تاسوعا و عاشورا نذری هم پخش می‌شود. این ماه، پرجمعیت‌ترین ایام مسجد است.</span>
+      </button>
+    </li>
+
+    <li class="mzc__item">
+      <button type="button" class="mzc__card">
+        <span class="mzc__top"><img class="mzc__photo" src="./مراسمات/کمیل.webp" alt="" width="200" height="200" loading="lazy" decoding="async" draggable="false"></span>
+        <span class="mzc__body">
+          <span class="mzc__name">دعای کمیل</span>
+          <span class="mzc__sum">قرائت دعای کمیل به صورت دسته‌جمعی با نوای دل‌نشین.</span>
+          <span class="mzc__go">جزئیات <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
+        </span>
+        <span class="mzc__full" hidden>دعای کمیل را همه با هم و با صدای یک دعاخوان می‌خوانیم. فضای مسجد در این جلسه آرام است و فرصت خوبی برای توبه و دعا به‌صورت جمعی فراهم می‌شود. ترجمه‌ی دعا هم در دسترس حاضران قرار دارد.</span>
+      </button>
+    </li>
+
+    <li class="mzc__item">
+      <button type="button" class="mzc__card">
+        <span class="mzc__top"><img class="mzc__photo" src="./مراسمات/نماز جماعن.webp" alt="" width="200" height="200" loading="lazy" decoding="async" draggable="false"></span>
+        <span class="mzc__body">
+          <span class="mzc__name">نماز جماعت</span>
+          <span class="mzc__sum">اقامه‌ی نماز در کنار هم، به امامت امام جماعت مسجد.</span>
+          <span class="mzc__go">جزئیات <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
+        </span>
+        <span class="mzc__full" hidden>نماز جماعت قلب تپنده‌ی مسجد است و در اوقات شرعی برپا می‌شود. همه‌ی مردم محل می‌توانند در صف‌های آن حضور پیدا کنند. بخش جداگانه‌ای هم برای بانوان در نظر گرفته شده است.</span>
+      </button>
+    </li>
+
+  </ul>
+
+  <dialog class="mzc__dialog" id="mzc-dialog" aria-labelledby="mzc-dtitle">
+    <div class="mzc__dtop">
+      <button type="button" class="mzc__close" id="mzc-close" aria-label="بستن">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <img class="mzc__dphoto" id="mzc-dphoto" src="" alt="" width="220" height="220">
+    </div>
+    <div class="mzc__dbody">
+      <h3 class="mzc__dtitle" id="mzc-dtitle"></h3>
+      <p class="mzc__dtext" id="mzc-dtext"></p>
+    </div>
+  </dialog>
+</section>
+
+<script>
+(function () {
+  var root = document.getElementById('mzc');
+  if (!root) return;
+
+  var track = document.getElementById('mzc-track');
+  var dlg = document.getElementById('mzc-dialog');
+  var dPhoto = document.getElementById('mzc-dphoto');
+  var dTitle = document.getElementById('mzc-dtitle');
+  var dText = document.getElementById('mzc-dtext');
+
+  // کشیدن با ماوس (لمس را خود مرورگر انجام می‌دهد)
+  var down = false, moved = false, startX = 0, startLeft = 0;
+
+  track.addEventListener('pointerdown', function (e) {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    down = true;
+    moved = false;
+    startX = e.clientX;
+    startLeft = track.scrollLeft;
+  });
+
+  track.addEventListener('pointermove', function (e) {
+    if (!down) return;
+    var dx = e.clientX - startX;
+    if (!moved && Math.abs(dx) > 5) {
+      moved = true;
+      track.classList.add('is-drag');
+      track.setPointerCapture(e.pointerId);
+    }
+    if (moved) track.scrollLeft = startLeft - dx;
+  });
+
+  function release() {
+    if (!down) return;
+    down = false;
+    track.classList.remove('is-drag');
+    // بعد از کشیدن، کلیکِ ناخواسته روی کارت نادیده گرفته می‌شود
+    setTimeout(function () { moved = false; }, 0);
+  }
+  track.addEventListener('pointerup', release);
+  track.addEventListener('pointercancel', release);
+  track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
+  // باز کردن مودال
+  track.addEventListener('click', function (e) {
+    var card = e.target.closest('.mzc__card');
+    if (!card || moved) return;
+
+    var img = card.querySelector('.mzc__photo');
+    dPhoto.src = img.getAttribute('src');
+    dTitle.textContent = card.querySelector('.mzc__name').textContent;
+    dText.textContent = card.querySelector('.mzc__full').textContent;
+
+    if (typeof dlg.showModal === 'function') dlg.showModal();
+    else dlg.setAttribute('open', '');
+  });
+
+  document.getElementById('mzc-close').addEventListener('click', function () {
+    dlg.close();
+  });
+
+  // کلیک روی فضای تیره‌ی بیرون مودال
+  dlg.addEventListener('click', function (e) {
+    if (e.target === dlg) dlg.close();
+  });
+})();
+</script>
+<br><br><br>
+<!-- ===== پایان بخش مراسم‌ها ===== -->
         <!-- ===== HELP MOSQUE ===== -->
  
     <div id="help" class="container">
